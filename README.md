@@ -1,5 +1,5 @@
 ![photo](https://i.imgur.com/DrZJOzy.png)
-![photo](https://i.imgur.com/9VfLaco.png =162x32)
+![photo](https://i.imgur.com/EHIoNoR.png)
 
 # ANN Visualizer
 A great visualization python library used to work with Keras. It uses python's graphviz library to create a presentable graph of the neural network you are building.
