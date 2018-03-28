@@ -9,6 +9,13 @@ A great visualization python library used to work with Keras. It uses python's g
 1. Download the `ann_visualizer` folder from the github repository.
 2. Place the `ann_visualizer` folder in the same directory as your main python script.
 
+### From pip
+Use the following command:
+
+```bash
+pip install ann_visualizer
+```
+
 ## Usage
 
 ```python
