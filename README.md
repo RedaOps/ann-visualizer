@@ -5,20 +5,22 @@
 A great visualization python library used to work with Keras. It uses python's graphviz library to create a presentable graph of the neural network you are building.
 
 ## Installation
-1. Download the `ann_visualizer.py` file from the github repository.
-2. Place the `ann_visualizer.py` in the same directory as your main python script.
-3. Just import the function and use it:
+### From Github
+1. Download the `ann_visualizer` folder from the github repository.
+2. Place the `ann_visualizer` folder in the same directory as your main python script.
+
+## Usage
 
 ```python
 
-from ann_visualizer import visualize
+from ann_visualizer.visualize import ann_viz;
 #Build your model here
-visualize(model)
+ann_viz(model)
 ```
 
 ## Documentation
 
-### visualize(model, view=True, filename="network.gv")
+### ann_viz(model, view=True, filename="network.gv")
 * `model` - The Keras Sequential model
 * `view` - If True, it opens the graph preview after executed
 * `filename` - Where to save the graph. (.gv file format)
@@ -46,9 +48,9 @@ network.add(Dense(units=1,
                   activation='sigmoid',
                   kernel_initializer='uniform'));
 
-from ann_visualizer import visualize
+from ann_visualizer.visualize import ann_viz;
 
-visualize(network);
+ann_viz(network);
 ```
 
 This will output:
