@@ -29,10 +29,11 @@ ann_viz(model)
 
 ## Documentation
 
-### ann_viz(model, view=True, filename="network.gv")
+### ann_viz(model, view=True, filename="network.gv", title="MyNeural Network")
 * `model` - The Keras Sequential model
 * `view` - If True, it opens the graph preview after executed
 * `filename` - Where to save the graph. (.gv file format)
+* `title` - A title for the graph
 
 ## Example
 ```python

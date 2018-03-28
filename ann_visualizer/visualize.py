@@ -25,6 +25,7 @@ def ann_viz(model, view=True, filename="network.gv", title="My Neural Network"):
 
         filename: where to save the vizualization. (a .gv file)
 
+        title: A title for the graph
     """
     from graphviz import Digraph;
     import keras;
