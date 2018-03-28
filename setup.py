@@ -23,7 +23,7 @@ ann_viz(model, view=True, filename="network.gv")
 setup(
   name = 'ann_visualizer',
   packages = ['ann_visualizer'],
-  version = '1.6',
+  version = '1.7',
   license="MIT",
   description = 'A python library for visualizing Keras Artificial Neural Networks',
   long_description=long_description,

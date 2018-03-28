@@ -15,7 +15,7 @@ The above copyright notice and this permission notice
 shall be included in all copies or substantial portions of the Software.
 """
 
-def ann_viz(model, view=True, filename="network.gv"):
+def ann_viz(model, view=True, filename="network.gv", title="My Neural Network"):
     """Vizualizez a Sequential model.
 
     # Arguments
@@ -57,7 +57,7 @@ def ann_viz(model, view=True, filename="network.gv"):
             for i in range(0, input_layer):
                 n += 1;
                 c.node(str(n));
-            c.attr(label='Input Layer')
+            c.attr(label=title+'\n\n\n\nInput Layer')
             c.attr(rank='same');
             c.node_attr.update(color="#2ecc71", style="filled", fontcolor="#2ecc71", shape="circle");
 

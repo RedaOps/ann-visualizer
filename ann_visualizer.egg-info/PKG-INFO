@@ -1,6 +1,6 @@
 Metadata-Version: 1.1
 Name: ann-visualizer
-Version: 1.6
+Version: 1.7
 Summary: A python library for visualizing Keras Artificial Neural Networks
 Home-page: https://github.com/Prodicode/ann-visualizer
 Author: Tudor Gheorghiu
