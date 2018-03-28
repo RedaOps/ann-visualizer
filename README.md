@@ -60,7 +60,7 @@ network.add(Dense(units=1,
 
 from ann_visualizer.visualize import ann_viz;
 
-ann_viz(network);
+ann_viz(network, title="");
 ```
 
 This will output:
