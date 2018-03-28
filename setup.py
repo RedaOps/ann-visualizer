@@ -1,10 +1,22 @@
 from distutils.core import setup
+
+from codecs import open
+from os import path
+
+here = path.abspath(path.dirname(__file__))
+
+# Get the long description from the README file
+with open(path.join(here, 'README.md'), encoding='utf-8') as f:
+    long_description = f.read()
+
+
 setup(
   name = 'ann_visualizer',
   packages = ['ann_visualizer'],
-  version = '1.1',
+  version = '1.2',
   license="MIT",
   description = 'A python library for visualizing Keras Artificial Neural Networks',
+  long_description=long_description,
   author = 'Tudor Gheorghiu',
   author_email = 'tudor.posta@live.com',
   url = 'https://github.com/Prodicode/ann-visualizer',
