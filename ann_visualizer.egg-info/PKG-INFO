@@ -1,7 +1,7 @@
 Metadata-Version: 1.1
 Name: ann-visualizer
-Version: 1.8
-Summary: A python library for visualizing Keras Artificial Neural Networks
+Version: 2.0
+Summary: A python library for visualizing Neural Networks
 Home-page: https://github.com/Prodicode/ann-visualizer
 Author: Tudor Gheorghiu
 Author-email: tudor.posta@live.com
@@ -10,6 +10,8 @@ Description:
             ANN Visualizer is a great visualization python library used to work with Keras. It uses python's graphviz library to create a presentable graph of the neural network you are building.
         
             Usage:
+        
+        
         from ann_visualizer.visualize import ann_viz;
         #Build your model here
         ann_viz(model)
@@ -20,9 +22,9 @@ Description:
         
         ann_viz(model, view=True, filename="network.gv")
         
-        * model - The Keras Sequential model
-        * view - If True, it opens the graph preview after executed
-        * filename - Where to save the graph. (.gv file format)
+         model - The Keras Sequential model
+         view - If True, it opens the graph preview after executed
+         filename - Where to save the graph. (.gv file format)
         
 Keywords: ann,ai,visualizer,learning,artificial,intelligence
 Platform: UNKNOWN
