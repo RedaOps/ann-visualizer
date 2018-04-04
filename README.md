@@ -74,6 +74,9 @@ This will output:
 
 ## Example CNN
 ```python
+import keras;
+from keras.models import Sequential;
+from keras.layers import Dense;
 from ann_visualizer.visualize import ann_viz
 model = build_cnn_model()
 ann_viz(model, title="")

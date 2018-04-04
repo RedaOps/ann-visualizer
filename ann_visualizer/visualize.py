@@ -29,7 +29,7 @@ def ann_viz(model, view=True, filename="network.gv", title="My Neural Network"):
     """
     from graphviz import Digraph;
     import keras;
-    from keras import Sequential;
+    from keras.models import Sequential;
     from keras.layers import Dense, Conv2D, MaxPooling2D, Dropout, Flatten;
     import json;
     input_layer = 0;
