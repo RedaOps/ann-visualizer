@@ -138,36 +138,44 @@ def ann_viz(model, view=True, filename="network.gv", title="My Neural Network"):
                     n += 1;
                     kernel_size = str(model.layers[i].get_config()['kernel_size']).split(',')[0][1] + "x" + str(model.layers[i].get_config()['kernel_size']).split(',')[1][1 : -1];
                     filters = str(model.layers[i].get_config()['filters']);
-                    c.node("conv_"+str(n), label="Convolutional Layer\nKernel Size: "+kernel_size+"\nFilters: "+filters, shape="square");
+                    padding = str(model.layers[i].get_config()['padding']);
+                    input_shape = str(model.layers[i].input_shape);
+                    c.node("conv_"+str(n), label="Convolutional Layer\nKernel Size: "+kernel_size+"\nFilters: "+filters+ "\nPadding: "+padding, shape="square");
                     c.node(str(n), label=filters+"\nFeature Maps", shape="square");
-                    g.edge("conv_"+str(n), str(n));
+                    g.edge("conv_"+str(n), str(n), );
                     for h in range(nodes_up - last_layer_nodes + 1 , nodes_up + 1):
-                        g.edge(str(h), "conv_"+str(n));
+                        g.edge(str(h), "conv_"+str(n), label=input_shape);
                     last_layer_nodes = 1;
                     nodes_up += 1;
                 elif (layer_types[i] == "MaxPooling2D"):
                     c.attr(color="white");
                     n += 1;
                     pool_size = str(model.layers[i].get_config()['pool_size']).split(',')[0][1] + "x" + str(model.layers[i].get_config()['pool_size']).split(',')[1][1 : -1];
-                    c.node(str(n), label="Max Pooling\nPool Size: "+pool_size, style="filled", fillcolor="#8e44ad", fontcolor="white");
+                    strides = str(model.layers[i].get_config()['strides']);
+                    padding = str(model.layers[i].get_config()['padding']);
+
+                    input_shape = str(model.layers[i].input_shape);
+                    c.node(str(n), label="Max Pooling\nPool Size: "+pool_size+"\nstrides: "+strides+"\npadding: "+padding, style="filled", fillcolor="#8e44ad", fontcolor="white");
                     for h in range(nodes_up - last_layer_nodes + 1 , nodes_up + 1):
-                        g.edge(str(h), str(n));
+                        g.edge(str(h), str(n), label=input_shape);
                     last_layer_nodes = 1;
                     nodes_up += 1;
                 elif (layer_types[i] == "Flatten"):
                     n += 1;
+                    input_shape = str(model.layers[i].input_shape);
                     c.attr(color="white");
                     c.node(str(n), label="Flattening", shape="invtriangle", style="filled", fillcolor="#2c3e50", fontcolor="white");
                     for h in range(nodes_up - last_layer_nodes + 1 , nodes_up + 1):
-                        g.edge(str(h), str(n));
+                        g.edge(str(h), str(n),label=input_shape);
                     last_layer_nodes = 1;
                     nodes_up += 1;
                 elif (layer_types[i] == "Dropout"):
                     n += 1;
                     c.attr(color="white");
+                    input_shape = str(model.layers[i].input_shape);
                     c.node(str(n), label="Dropout Layer", style="filled", fontcolor="white", fillcolor="#f39c12");
                     for h in range(nodes_up - last_layer_nodes + 1 , nodes_up + 1):
-                        g.edge(str(h), str(n));
+                        g.edge(str(h), str(n),label=input_shape);
                     last_layer_nodes = 1;
                     nodes_up += 1;
 
