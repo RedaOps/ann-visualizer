@@ -74,57 +74,60 @@ This will output:
 
 ## Example CNN
 ```python
-import keras;
-from keras.models import Sequential;
-from keras.layers import Dense;
+import keras
+from keras.models import Sequential
+from keras.layers import Dense
 from ann_visualizer.visualize import ann_viz
-model = build_cnn_model()
-ann_viz(model, title="")
+from keras.layers import Conv2D, Dropout, MaxPooling2D, Dropout, Flatten
+
 
 def build_cnn_model():
-  model = keras.models.Sequential()
+    model = keras.models.Sequential()
 
-  model.add(
+    model.add(
       Conv2D(
           32, (3, 3),
           padding="same",
           input_shape=(32, 32, 3),
           activation="relu"))
-  model.add(Dropout(0.2))
+    model.add(Dropout(0.2))
 
-  model.add(
+    model.add(
       Conv2D(
           32, (3, 3),
           padding="same",
           input_shape=(32, 32, 3),
           activation="relu"))
-  model.add(MaxPooling2D(pool_size=(2, 2)))
-  model.add(Dropout(0.2))
+    model.add(MaxPooling2D(pool_size=(2, 2)))
+    model.add(Dropout(0.2))
 
-  model.add(
+    model.add(
       Conv2D(
           64, (3, 3),
           padding="same",
           input_shape=(32, 32, 3),
           activation="relu"))
-  model.add(Dropout(0.2))
+    model.add(Dropout(0.2))
 
-  model.add(
+    model.add(
       Conv2D(
           64, (3, 3),
           padding="same",
           input_shape=(32, 32, 3),
           activation="relu"))
-  model.add(MaxPooling2D(pool_size=(2, 2)))
-  model.add(Dropout(0.2))
+    model.add(MaxPooling2D(pool_size=(2, 2)))
+    model.add(Dropout(0.2))
 
-  model.add(Flatten())
-  model.add(Dense(512, activation="relu"))
-  model.add(Dropout(0.2))
+    model.add(Flatten())
+    model.add(Dense(512, activation="relu"))
+    model.add(Dropout(0.2))
 
-  model.add(Dense(10, activation="softmax"))
+    model.add(Dense(10, activation="softmax"))
 
-  return model
+    return model
+
+model = build_cnn_model()
+ann_viz(model, title="")
 ```
 
 This will output:
