@@ -54,6 +54,8 @@ def ann_viz(model, view=True, filename="network.gv", title="My Neural Network"):
                     layer_types.append("Dropout");
                 elif (type(layer) == keras.layers.core.Flatten):
                     layer_types.append("Flatten");
+                elif (type(layer) == keras.layers.core.Activation):
+                    layer_types.append("Activation");
         else:
             if(layer == model.layers[-1]):
                 output_layer = int(str(layer.output_shape).split(",")[1][1:-1]);
@@ -72,6 +74,8 @@ def ann_viz(model, view=True, filename="network.gv", title="My Neural Network"):
                         layer_types.append("Dropout");
                     elif (type(layer) == keras.layers.core.Flatten):
                         layer_types.append("Flatten");
+                    elif (type(layer) == keras.layers.core.Activation):
+                        layer_types.append("Activation");
         last_layer_nodes = input_layer;
         nodes_up = input_layer;
         if(type(model.layers[0]) != keras.layers.core.Dense):
@@ -166,6 +170,15 @@ def ann_viz(model, view=True, filename="network.gv", title="My Neural Network"):
                     n += 1;
                     c.attr(color="white");
                     c.node(str(n), label="Dropout Layer", style="filled", fontcolor="white", fillcolor="#f39c12");
+                    for h in range(nodes_up - last_layer_nodes + 1 , nodes_up + 1):
+                        g.edge(str(h), str(n));
+                    last_layer_nodes = 1;
+                    nodes_up += 1;
+                elif (layer_types[i] == "Activation"):
+                    n += 1;
+                    c.attr(color="white");
+                    fnc = model.layers[i].get_config()['activation'];
+                    c.node(str(n), shape="octagon", label="Activation Layer\nFunction: "+fnc, style="filled", fontcolor="white", fillcolor="#00b894");
                     for h in range(nodes_up - last_layer_nodes + 1 , nodes_up + 1):
                         g.edge(str(h), str(n));
                     last_layer_nodes = 1;

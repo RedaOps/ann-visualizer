@@ -25,7 +25,7 @@ ann_viz(model, view=True, filename="network.gv")
 setup(
   name = 'ann_visualizer',
   packages = ['ann_visualizer'],
-  version = '2.1',
+  version = '2.2',
   license="MIT",
   description = 'A python library for visualizing Neural Networks',
   long_description=long_description,
