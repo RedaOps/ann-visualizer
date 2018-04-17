@@ -103,6 +103,8 @@ def ann_viz(model, view=True, filename="network.gv", title="My Neural Network"):
 
             elif(type(model.layers[0]) == keras.layers.convolutional.Conv2D):
                 #Conv2D Input visualizing
+                the_label = title+'\n\n\n\nInput Layer';
+                c.attr(color="white", label=the_label);
                 c.node_attr.update(shape="square");
                 pxls = str(model.layers[0].input_shape).split(',');
                 clr = int(pxls[3][1:-1]);
@@ -114,7 +116,7 @@ def ann_viz(model, view=True, filename="network.gv", title="My Neural Network"):
                     the_color = "#e74c3c:#3498db";
                 else:
                     clrmap = "";
-                c.attr(fontcolor="white", fillcolor=the_color, style="filled");
+                c.node_attr.update(fontcolor="white", fillcolor=the_color, style="filled");
                 n += 1;
                 c.node(str(n), label="Image\n"+pxls[1]+" x"+pxls[2]+" pixels\n"+clrmap, fontcolor="white");
             else:
