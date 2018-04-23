@@ -24,6 +24,12 @@ Use the following command:
 pip install ann_visualizer
 ```
 
+Make sure you have graphviz installed. Install it using:
+
+```bash
+sudo apt-get install graphviz
+```
+
 ## Usage
 
 ```python

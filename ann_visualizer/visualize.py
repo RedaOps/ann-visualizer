@@ -85,7 +85,7 @@ def ann_viz(model, view=True, filename="network.gv", title="My Neural Network"):
 
         g = Digraph('g', filename=filename);
         n = 0;
-        g.attr(splines="false", nodesep='1', ranksep='2');
+        g.graph_attr.update(splines="false", nodesep='1', ranksep='2');
         #Input Layer
         with g.subgraph(name='cluster_input') as c:
             if(type(model.layers[0]) == keras.layers.core.Dense):
