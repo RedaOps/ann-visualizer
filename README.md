@@ -2,7 +2,7 @@
 ![photo](https://i.imgur.com/EHIoNoR.png)
 
 # ANN Visualizer
-[![PyPI version](https://badge.fury.io/py/ann_visualizer.svg)](https://badge.fury.io/py/ann_visualizer)
+[![PyPI version](https://badge.fury.io/py/ann_visualizer.svg)](https://badge.fury.io/py/ann_visualizer) [![Donate](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/Prodicode/donate)
 
 A great visualization python library used to work with Keras. It uses python's graphviz library to create a presentable graph of the neural network you are building.
 
