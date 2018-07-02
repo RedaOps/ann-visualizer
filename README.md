@@ -21,13 +21,13 @@ Happy visualizing!
 Use the following command:
 
 ```bash
-pip install ann_visualizer
+pip3 install ann_visualizer
 ```
 
 Make sure you have graphviz installed. Install it using:
 
 ```bash
-sudo apt-get install graphviz
+sudo apt-get install graphviz && pip3 install graphviz
 ```
 
 ## Usage

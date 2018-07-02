@@ -1,0 +1,16 @@
+language: python
+python:
+  - "3.6"
+install:
+  - pip3 install tensorflow
+  - pip3 install keras
+  - pip3 install ann_visualizer
+  - pip3 install graphviz
+script:
+  - tests/test_ann.py
+addons:
+  apt:
+    packages:
+     - python3.6
+     - python3-pip
+     - graphviz
