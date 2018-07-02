@@ -137,4 +137,4 @@ This will output:
 ![photo](https://i.imgur.com/v3QpACl.png)
 
 ## Contributions
-This library is still unstable. Please report all bug to the issues section. It is currently tested with `python3.5`, but it should run just fine on any python3.
+This library is still unstable. Please report all bug to the issues section. It is currently tested with `python3.5` and `python3.6`, but it should run just fine on any python3.

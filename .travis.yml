@@ -7,7 +7,7 @@ install:
   - pip3 install ann_visualizer
   - pip3 install graphviz
 script:
-  - tests/test_ann.py
+  - python3.6 tests/test_ann.py
 addons:
   apt:
     packages:
