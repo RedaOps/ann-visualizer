@@ -11,6 +11,4 @@ script:
 addons:
   apt:
     packages:
-     - python3.6
-     - python3-pip
      - graphviz
