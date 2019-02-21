@@ -204,3 +204,4 @@ def ann_viz(model, view=True, filename="network.gv", title="My Neural Network"):
         g.edge_attr.update(arrowhead="none", color="#707070");
         if view == True:
             g.view();
+        return g
