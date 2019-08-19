@@ -14,6 +14,26 @@ subject to the following conditions:
 The above copyright notice and this permission notice
 shall be included in all copies or substantial portions of the Software.
 """
+from graphviz import Digraph;
+import keras;
+
+def get_image_input_vis(the_label, model, pxls, c, n):
+    c.attr(color="white", label=the_label);
+    c.node_attr.update(shape="square");
+    clr = int(pxls[3][1:-1]);
+    if (clr == 1):
+        clrmap = "Grayscale";
+        the_color = "black:white";
+    elif (clr == 3):
+        clrmap = "RGB";
+        the_color = "#e74c3c:#3498db";
+    else:
+        clrmap = "";
+    c.node_attr.update(fontcolor="white", fillcolor=the_color, style="filled");
+    n += 1;
+    c.node(str(n), label="Image\n" + pxls[1] + " x" + pxls[2] + " pixels\n" + clrmap,
+           fontcolor="white");
+    return n, c
 
 def ann_viz(model, view=True, filename="network.gv", title="My Neural Network"):
     """Vizualizez a Sequential model.
@@ -27,11 +47,6 @@ def ann_viz(model, view=True, filename="network.gv", title="My Neural Network"):
 
         title: A title for the graph
     """
-    from graphviz import Digraph;
-    import keras;
-    from keras.models import Sequential;
-    from keras.layers import Dense, Conv2D, MaxPooling2D, Dropout, Flatten;
-    import json;
     input_layer = 0;
     hidden_layers_nr = 0;
     layer_types = [];
@@ -39,23 +54,24 @@ def ann_viz(model, view=True, filename="network.gv", title="My Neural Network"):
     output_layer = 0;
     for layer in model.layers:
         if(layer == model.layers[0]):
-            input_layer = int(str(layer.input_shape).split(",")[1][1:-1]);
-            hidden_layers_nr += 1;
-            if (type(layer) == keras.layers.core.Dense):
-                hidden_layers.append(int(str(layer.output_shape).split(",")[1][1:-1]));
-                layer_types.append("Dense");
-            else:
-                hidden_layers.append(1);
-                if (type(layer) == keras.layers.convolutional.Conv2D):
-                    layer_types.append("Conv2D");
-                elif (type(layer) == keras.layers.pooling.MaxPooling2D):
-                    layer_types.append("MaxPooling2D");
-                elif (type(layer) == keras.layers.core.Dropout):
-                    layer_types.append("Dropout");
-                elif (type(layer) == keras.layers.core.Flatten):
-                    layer_types.append("Flatten");
-                elif (type(layer) == keras.layers.core.Activation):
-                    layer_types.append("Activation");
+            if type(layer) != keras.engine.input_layer.InputLayer:
+                input_layer = int(str(layer.input_shape).split(",")[1][1:-1]);
+                hidden_layers_nr += 1;
+                if (type(layer) == keras.layers.core.Dense):
+                    hidden_layers.append(int(str(layer.output_shape).split(",")[1][1:-1]));
+                    layer_types.append("Dense");
+                else:
+                    hidden_layers.append(1);
+                    if (type(layer) == keras.layers.convolutional.Conv2D):
+                        layer_types.append("Conv2D");
+                    elif (type(layer) == keras.layers.pooling.MaxPooling2D):
+                        layer_types.append("MaxPooling2D");
+                    elif (type(layer) == keras.layers.core.Dropout):
+                        layer_types.append("Dropout");
+                    elif (type(layer) == keras.layers.core.Flatten):
+                        layer_types.append("Flatten");
+                    elif (type(layer) == keras.layers.core.Activation):
+                        layer_types.append("Activation");
         else:
             if(layer == model.layers[-1]):
                 output_layer = int(str(layer.output_shape).split(",")[1][1:-1]);
@@ -76,6 +92,8 @@ def ann_viz(model, view=True, filename="network.gv", title="My Neural Network"):
                         layer_types.append("Flatten");
                     elif (type(layer) == keras.layers.core.Activation):
                         layer_types.append("Activation");
+                    elif (type(layer) == keras.engine.input_layer.InputLayer):
+                        layer_types.append("Inputs");
         last_layer_nodes = input_layer;
         nodes_up = input_layer;
         if(type(model.layers[0]) != keras.layers.core.Dense):
@@ -88,8 +106,8 @@ def ann_viz(model, view=True, filename="network.gv", title="My Neural Network"):
         g.graph_attr.update(splines="false", nodesep='1', ranksep='2');
         #Input Layer
         with g.subgraph(name='cluster_input') as c:
+            the_label = title + '\n\n\n\nInput Layer';
             if(type(model.layers[0]) == keras.layers.core.Dense):
-                the_label = title+'\n\n\n\nInput Layer';
                 if (int(str(model.layers[0].input_shape).split(",")[1][1:-1]) > 10):
                     the_label += " (+"+str(int(str(model.layers[0].input_shape).split(",")[1][1:-1]) - 10)+")";
                     input_layer = 10;
@@ -103,22 +121,14 @@ def ann_viz(model, view=True, filename="network.gv", title="My Neural Network"):
 
             elif(type(model.layers[0]) == keras.layers.convolutional.Conv2D):
                 #Conv2D Input visualizing
-                the_label = title+'\n\n\n\nInput Layer';
-                c.attr(color="white", label=the_label);
-                c.node_attr.update(shape="square");
+                pxls = str(model.layers[0].input_shape).split(',')
+                n, c = get_image_input_vis(the_label, model, pxls, c, n)
+            elif (type(model.layers[0]) == keras.engine.input_layer.InputLayer):
                 pxls = str(model.layers[0].input_shape).split(',');
-                clr = int(pxls[3][1:-1]);
-                if (clr == 1):
-                    clrmap = "Grayscale";
-                    the_color = "black:white";
-                elif (clr == 3):
-                    clrmap = "RGB";
-                    the_color = "#e74c3c:#3498db";
+                if (len(pxls)==4):
+                    n, c = get_image_input_vis(the_label, model, pxls, c, n)
                 else:
-                    clrmap = "";
-                c.node_attr.update(fontcolor="white", fillcolor=the_color, style="filled");
-                n += 1;
-                c.node(str(n), label="Image\n"+pxls[1]+" x"+pxls[2]+" pixels\n"+clrmap, fontcolor="white");
+                    raise ValueError("Only have support for image based functional api");
             else:
                 raise ValueError("ANN Visualizer: Layer not supported for visualizing");
         for i in range(0, hidden_layers_nr):
