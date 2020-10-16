@@ -16,10 +16,10 @@ shall be included in all copies or substantial portions of the Software.
 """
 
 def ann_viz(model, view=True, filename="network.gv", title="My Neural Network"):
-    """Vizualizez a Sequential model.
+    """Visualize a Sequential model.
 
     # Arguments
-        model: A Keras model instance.
+        model: A tensorflow.keras model instance.
 
         view: whether to display the model after generation.
 
@@ -28,9 +28,15 @@ def ann_viz(model, view=True, filename="network.gv", title="My Neural Network"):
         title: A title for the graph
     """
     from graphviz import Digraph;
-    import keras;
-    from keras.models import Sequential;
-    from keras.layers import Dense, Conv2D, MaxPooling2D, Dropout, Flatten;
+    from tensorflow.keras.models import Sequential;
+    from tensorflow.keras.layers import (
+        Activation,
+        Dense,
+        Conv2D,
+        MaxPooling2D,
+        Dropout,
+        Flatten
+    );
     import json;
     input_layer = 0;
     hidden_layers_nr = 0;
@@ -41,44 +47,44 @@ def ann_viz(model, view=True, filename="network.gv", title="My Neural Network"):
         if(layer == model.layers[0]):
             input_layer = int(str(layer.input_shape).split(",")[1][1:-1]);
             hidden_layers_nr += 1;
-            if (type(layer) == keras.layers.core.Dense):
+            if (type(layer) == Dense):
                 hidden_layers.append(int(str(layer.output_shape).split(",")[1][1:-1]));
                 layer_types.append("Dense");
             else:
                 hidden_layers.append(1);
-                if (type(layer) == keras.layers.convolutional.Conv2D):
+                if (type(layer) == Conv2D):
                     layer_types.append("Conv2D");
-                elif (type(layer) == keras.layers.pooling.MaxPooling2D):
+                elif (type(layer) == MaxPooling2D):
                     layer_types.append("MaxPooling2D");
-                elif (type(layer) == keras.layers.core.Dropout):
+                elif (type(layer) == Dropout):
                     layer_types.append("Dropout");
-                elif (type(layer) == keras.layers.core.Flatten):
+                elif (type(layer) == Flatten):
                     layer_types.append("Flatten");
-                elif (type(layer) == keras.layers.core.Activation):
+                elif (type(layer) == Activation):
                     layer_types.append("Activation");
         else:
             if(layer == model.layers[-1]):
                 output_layer = int(str(layer.output_shape).split(",")[1][1:-1]);
             else:
                 hidden_layers_nr += 1;
-                if (type(layer) == keras.layers.core.Dense):
+                if (type(layer) == Dense):
                     hidden_layers.append(int(str(layer.output_shape).split(",")[1][1:-1]));
                     layer_types.append("Dense");
                 else:
                     hidden_layers.append(1);
-                    if (type(layer) == keras.layers.convolutional.Conv2D):
+                    if (type(layer) == Conv2D):
                         layer_types.append("Conv2D");
-                    elif (type(layer) == keras.layers.pooling.MaxPooling2D):
+                    elif (type(layer) == MaxPooling2D):
                         layer_types.append("MaxPooling2D");
-                    elif (type(layer) == keras.layers.core.Dropout):
+                    elif (type(layer) == Dropout):
                         layer_types.append("Dropout");
-                    elif (type(layer) == keras.layers.core.Flatten):
+                    elif (type(layer) == Flatten):
                         layer_types.append("Flatten");
-                    elif (type(layer) == keras.layers.core.Activation):
+                    elif (type(layer) == Activation):
                         layer_types.append("Activation");
         last_layer_nodes = input_layer;
         nodes_up = input_layer;
-        if(type(model.layers[0]) != keras.layers.core.Dense):
+        if(type(model.layers[0]) != Dense):
             last_layer_nodes = 1;
             nodes_up = 1;
             input_layer = 1;
@@ -88,7 +94,7 @@ def ann_viz(model, view=True, filename="network.gv", title="My Neural Network"):
         g.graph_attr.update(splines="false", nodesep='1', ranksep='2');
         #Input Layer
         with g.subgraph(name='cluster_input') as c:
-            if(type(model.layers[0]) == keras.layers.core.Dense):
+            if(type(model.layers[0]) == Dense):
                 the_label = title+'\n\n\n\nInput Layer';
                 if (int(str(model.layers[0].input_shape).split(",")[1][1:-1]) > 10):
                     the_label += " (+"+str(int(str(model.layers[0].input_shape).split(",")[1][1:-1]) - 10)+")";
@@ -101,7 +107,7 @@ def ann_viz(model, view=True, filename="network.gv", title="My Neural Network"):
                     c.attr(rank='same');
                     c.node_attr.update(color="#2ecc71", style="filled", fontcolor="#2ecc71", shape="circle");
 
-            elif(type(model.layers[0]) == keras.layers.convolutional.Conv2D):
+            elif(type(model.layers[0]) == Conv2D):
                 #Conv2D Input visualizing
                 the_label = title+'\n\n\n\nInput Layer';
                 c.attr(color="white", label=the_label);
@@ -188,7 +194,7 @@ def ann_viz(model, view=True, filename="network.gv", title="My Neural Network"):
 
 
         with g.subgraph(name='cluster_output') as c:
-            if (type(model.layers[-1]) == keras.layers.core.Dense):
+            if (type(model.layers[-1]) == Dense):
                 c.attr(color='white')
                 c.attr(rank='same');
                 c.attr(labeljust="1");
